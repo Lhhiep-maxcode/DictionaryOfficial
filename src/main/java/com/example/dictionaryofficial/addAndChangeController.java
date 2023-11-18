@@ -24,10 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.util.HashMap;
-import java.util.ResourceBundle;
-import java.util.Scanner;
-import java.util.Vector;
+import java.util.*;
 
 public class addAndChangeController implements Initializable {
     @FXML
@@ -168,15 +165,21 @@ public class addAndChangeController implements Initializable {
 
     public void addWord(ActionEvent event) {
         String word = wordInput.getText();
-        String pronunciation = pronunciationInput.getText();
+        String pronunciation = '/' + pronunciationInput.getText() + '/';
+        String meaning = "";
         HashMap<String, String> typeMeaning = new HashMap<>();
         typeMeaning.put("Danh từ", nounInput.getText());
+        meaning += !Objects.equals(nounInput.getText(), "") ? "Danh từ: " + nounInput.getText() + '\n' :  "";
         typeMeaning.put("Động từ", verbInput.getText());
+        meaning += !Objects.equals(verbInput.getText(), "") ? "Động từ: " + verbInput.getText() + '\n' :  "";
         typeMeaning.put("Tính từ", adjInput.getText());
+        meaning += !Objects.equals(adjInput.getText(), "") ? "Tính từ: " + adjInput.getText() + '\n' :  "";
         typeMeaning.put("Trạng từ", advInput.getText());
+        meaning += !Objects.equals(advInput.getText(), "") ? "Trạng từ: " + advInput.getText() + '\n' :  "";
         String example = exampleInput.getText();
+        meaning += !Objects.equals(exampleInput.getText(), "") ? "Ví dụ: " + exampleInput.getText() + '\n' :  "";
         boolean isOk = false;
-        isOk = DictionaryManagement.insertFromFront(word, pronunciation, typeMeaning, example, DBConnect.connectDB());
+        isOk = DictionaryManagement.insertFromFront(word, pronunciation, typeMeaning, example, meaning, DBConnect.connectDB());
         if (isOk) {
             notification.setText("Added Successfully!");
             submitButton.setVisible(false);

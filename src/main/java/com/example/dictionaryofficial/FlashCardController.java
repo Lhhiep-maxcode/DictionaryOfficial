@@ -147,7 +147,7 @@ public class FlashCardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ListFlashCard = FlashCard.getListFlashCard();
-        cardLabel.setStyle("-fx-font-size: 25px;");
+        cardLabel.setStyle("-fx-font-size: 25px;-fx-font-weight: bold;");
         cardLabel.setText(ListFlashCard.get(0).getWordTarget());
         curLabel.setText(Integer.toString(cur) + " / " + Integer.toString(ListFlashCard.size()));
         FlashCardPane.setOnMouseClicked(event -> {
