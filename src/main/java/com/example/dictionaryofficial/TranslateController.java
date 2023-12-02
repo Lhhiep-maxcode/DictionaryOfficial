@@ -19,7 +19,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class TranslateController implements Initializable  {
+public class TranslateController extends BaseController implements Initializable  {
 
     private Stage stage;
     private Scene scene;
@@ -48,44 +48,43 @@ public class TranslateController implements Initializable  {
         setting();
         initTranslate();
         src_text.textProperty().addListener((observable, oldValue, newValue) -> {
-            Task<String> task = new Task<String>() {
-                @Override
-                protected String call() throws Exception {
-                    String res = GoogleTransAPI.translate(src_text.getText(),
-                            switch_language(src_option.getSelectionModel().getSelectedItem()),
-                            switch_language(des_option.getSelectionModel().getSelectedItem()));
-                    res = outputTextFormatted(res);
-                    return res;
-                }
-            };
-            // ket thuc va hien thi
-            task.setOnSucceeded(event -> {
 
-                javafx.application.Platform.runLater(() -> {
-                    String result = task.getValue();
-                    javafx.application.Platform.runLater(() -> des_text.setText(result));
+                Task<String> task = new Task<String>() {
+                    @Override
+                    protected String call() throws Exception {
+                        String res = "";
+                        if(src_text.getText().isEmpty()) {
+                            res = "";
+                        }
+                        else {
+                           res = GoogleTransAPI.translate(src_text.getText(),
+                                    switch_language(src_option.getSelectionModel().getSelectedItem()),
+                                    switch_language(des_option.getSelectionModel().getSelectedItem()));
+                            res = outputTextFormatted(res);
+                        }
+                        return res;
+                    }
+                };
+                // ket thuc va hien thi
+                task.setOnSucceeded(event -> {
+
+                    javafx.application.Platform.runLater(() -> {
+                        if(src_text.getText().isEmpty()) {
+                            javafx.application.Platform.runLater(() -> des_text.setText(""));
+                        }
+                        else {
+                            String result = task.getValue();
+                            javafx.application.Platform.runLater(() -> des_text.setText(result));
+                        }
+                    });
                 });
+                // Chạy Task trên một luồng mới
+                new Thread(task).start();
+
             });
-            // Chạy Task trên một luồng mới
-            new Thread(task).start();
 
-        });
     }
 
-    public void showIntoProgramScene(ActionEvent event) throws IOException {
-        ManageScene.showScene(root,stage,scene,event,"IntoProgram.fxml");
-    }
-
-    public void showAddChangeScene(ActionEvent event) throws IOException {
-        ManageScene.showScene(root,stage,scene,event,"addAndChange.fxml");
-    }
-
-    public void showSettingScene(ActionEvent event) throws IOException {
-        ManageScene.showScene(root,stage,scene,event,"Setting.fxml");
-    }
-    public void showGameScene(ActionEvent event) throws IOException {
-        ManageScene.showScene(root,stage,scene,event,"Game.fxml");
-    }
 
     public void initTranslate() {
         src_option.getItems().add("English");
@@ -166,15 +165,18 @@ public class TranslateController implements Initializable  {
     }
 
     public String outputTextFormatted(String text) {
-        StringBuilder result = new StringBuilder();
-
-        for (char c : text.toCharArray()) {
-            if (Character.isLetter(c) || c == ',' || c == ' ' ) {
-                result.append(c);
+        if(text == "" || text == null) {
+            return "";
+        }
+        String result = "";
+        if(text.charAt(0) == '[' && text.charAt(text.length()-1) == ']') {
+            text = text.substring(1, text.length()-1);
+            if(text.charAt(0) == '[' && text.charAt(text.length()-1) == ']' && text.charAt(text.length()-4) == ','){
+                text = text.substring(1, text.length()-4);
             }
         }
-        String[] ans = result.toString().split(",");
-        return ans[0];
+        text = text.replace("\\n", "\n");
+        return text.trim();
     }
 
 

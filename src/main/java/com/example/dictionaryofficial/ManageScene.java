@@ -21,8 +21,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Vector;
 
-import static com.example.dictionaryofficial.ManageScene.THEME.BASIC;
-import static com.example.dictionaryofficial.ManageScene.THEME.PURPLE;
+import static com.example.dictionaryofficial.ManageScene.THEME.*;
 
 public class ManageScene {
     /**
@@ -37,7 +36,7 @@ public class ManageScene {
 
    public enum THEME {
        BASIC("basic"),
-        PURPLE("purple");
+        PURPLE("purple"), RAIN_BOW("rain-bow");
 
 
         private final String basic;
@@ -50,6 +49,7 @@ public class ManageScene {
             List<String> list_theme = new ArrayList<>();
             list_theme.add("basic");
             list_theme.add("purple");
+            list_theme.add("rain-bow");
             return list_theme;
         }
 
@@ -62,10 +62,18 @@ public class ManageScene {
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("HHH-dictionary");
+        stage.setTitle("TripH-dictionary");
         stage.show();
     }
 
+    public static void showHomeScene(Parent root , Stage stage, Scene scene, ActionEvent event) throws IOException {
+        root = FXMLLoader.load(ManageScene.class.getResource("Base.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("HHH-dictionary");
+        stage.show();
+    }
 
     /**
      * The fuction help to show status logout
@@ -138,6 +146,8 @@ public class ManageScene {
                 return BASIC;
             case "purple":
                 return PURPLE;
+            case"rain-bow" :
+                return RAIN_BOW;
         }
         return null;
 
@@ -150,6 +160,8 @@ public class ManageScene {
                return "theme_basic/" + src;
             case PURPLE:
                 return src;
+            case RAIN_BOW:
+                return "theme_rainbow/" +src;
             default:
                 return src;
 

@@ -42,7 +42,7 @@ import java.sql.Connection;
 import java.util.*;
 import java.util.concurrent.ForkJoinPool;
 
-public class IntoProgramController implements Initializable {
+public class IntoProgramController extends BaseController implements Initializable {
 
     private String searchWord;
     @FXML
@@ -215,22 +215,51 @@ public class IntoProgramController implements Initializable {
         historyList.getItems().add(0, word);
     }
 
-    public void UKAudio(ActionEvent event) throws IOException, JavaLayerException {
+    public void resetHistory() {
+        historyContainer.clear();
+        historyList.getItems().clear();
         try {
-            AudioGoogleAPI.getInstance().play(AudioGoogleAPI.getInstance().getAudio(searchWord, "en-UK"));
+            saveHistory();
+        } catch (IOException e) {
+            System.out.println("Can't write file");
         }
-        catch (Exception e) {
+    }
+
+    public void UKAudio(ActionEvent event) throws IOException, JavaLayerException {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    AudioGoogleAPI.getInstance().play(AudioGoogleAPI.getInstance().getAudio(searchWord, "en-UK"));
+                } catch (JavaLayerException | IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        try {
+            thread.start();
+        } catch (Exception e) {
             AudioGoogleAPI.getInstance().play(AudioGoogleAPI.getInstance().getAudio("Please search a word!", "en-UK"));
         }
     }
 
     public void USAudio(ActionEvent event) throws IOException, JavaLayerException {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    AudioGoogleAPI.getInstance().play(AudioGoogleAPI.getInstance().getAudio(searchWord, "en-US"));
+                } catch (JavaLayerException | IOException e) {
+                    throw new RuntimeException();
+                }
+            }
+        });
         try {
-            AudioGoogleAPI.getInstance().play(AudioGoogleAPI.getInstance().getAudio(searchWord, "en-US"));
-        }
-        catch (Exception e) {
+            thread.start();
+        } catch (Exception e) {
             AudioGoogleAPI.getInstance().play(AudioGoogleAPI.getInstance().getAudio("Please search a word!", "en-US"));
         }
+
     }
 
     public void favourHandler(ActionEvent event) {
@@ -249,6 +278,7 @@ public class IntoProgramController implements Initializable {
 
     public void EditWord(ActionEvent e) {
         submitEditButton.setVisible(true);
+        searchField.setEditable(false);
         String result = style + DictionaryCommandline.getWord(searchWord, DBConnect.connectDB());
 
         ToolBar toolBar = (ToolBar) editField.lookup(".top-toolbar");
@@ -265,11 +295,13 @@ public class IntoProgramController implements Initializable {
     }
 
     public void submitEditWord (ActionEvent e) {
+        searchField.setEditable(true);
         String result = editField.getHtmlText();
         DictionaryManagement.EditFromFront(searchWord, result, DBConnect.connectDB());
 
         searchResult.getEngine().loadContent(result);
 
+//        searchResult.setDisable(true);
         editField.setVisible(false);
         submitEditButton.setVisible(false);
         EditButton.setVisible(true);
@@ -385,26 +417,35 @@ public class IntoProgramController implements Initializable {
             suggestList.setVisible(false);
         });
     }
-    // Switch Scene
-    public void addScene(ActionEvent event) throws IOException {
+
+    @Override
+    public void showAddScene(ActionEvent event) throws IOException {
         saveHistory();
-        ManageScene.showScene(BaseController.getRoot(),BaseController.getStage(),BaseController.getScene(),event,"addAndChange.fxml");
+        ManageScene.showScene(root, stage, scene,event,"addAndChange.fxml");
     }
 
+    @Override
     public void showSettingScene(ActionEvent event) throws IOException {
         saveHistory();
-        ManageScene.showScene(BaseController.getRoot(),BaseController.getStage(),BaseController.getScene(),event,"Setting.fxml");
+        ManageScene.showScene(root, stage, scene,event,"Setting.fxml");
     }
 
-    public void gameScene(ActionEvent event) throws IOException {
+    @Override
+    public void showGameScene(ActionEvent event) throws IOException {
         saveHistory();
-        ManageScene.showScene(BaseController.getRoot(),BaseController.getStage(),BaseController.getScene(),event,"Game.fxml");
+        ManageScene.showScene(root, stage, scene,event,"Game.fxml");
     }
 
+    @Override
     public void showTranslateScene(ActionEvent event) throws IOException {
         saveHistory();
+        ManageScene.showScene(root, stage, scene, event,"Translate.fxml");
+    }
 
-        ManageScene.showScene(BaseController.getRoot(),BaseController.getStage(),BaseController.getScene(),event,"Translate.fxml");
+    @Override
+    public void showHomeScene(ActionEvent event) throws IOException {
+        saveHistory();
+        ManageScene.showHomeScene(BaseController.getRoot(), BaseController.getStage(), BaseController.getScene(), event);
     }
 
     public void setting() {

@@ -24,9 +24,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.util.*;
+import java.util.HashMap;
+import java.util.ResourceBundle;
+import java.util.Scanner;
+import java.util.Vector;
 
-public class addAndChangeController implements Initializable {
+public class addAndChangeController extends BaseController implements Initializable {
     @FXML
     private TextField wordInput;
     @FXML
@@ -63,16 +66,8 @@ public class addAndChangeController implements Initializable {
 //    Connection connection = DBConnect.connectDB();
 
     //-----------------------------------------------------------------------------------------------------------//
-    //Switch Scene
-    public void searchScene(ActionEvent event) throws IOException {
 
-       ManageScene.showScene(BaseController.getRoot(),BaseController.getStage(),BaseController.getScene(),event,"IntoProgram.fxml");
-    }
 
-    public void gameScene(ActionEvent event) throws IOException {
-        ManageScene.showScene(BaseController.getRoot(),BaseController.getStage(),BaseController.getScene(),event,"Game.fxml");
-
-    }
 
     public void settingFont() {
         settingFont = new Vector<>();
@@ -97,12 +92,6 @@ public class addAndChangeController implements Initializable {
         ManageScene.setFont(exampleInput);
     }
 
-    public void showSettingScene(ActionEvent event) throws IOException {
-        ManageScene.showScene(BaseController.getRoot(),BaseController.getStage(),BaseController.getScene(), event, "Setting.fxml");
-    }
-    public void showTranslateScene(ActionEvent event) throws IOException {
-        ManageScene.showScene(BaseController.getRoot(),BaseController.getStage(),BaseController.getScene(), event, "Translate.fxml");
-    }
 
     public void checkExistingWord(ActionEvent event) throws IOException {
         notification.setVisible(true);
@@ -111,6 +100,7 @@ public class addAndChangeController implements Initializable {
         if (!isExist) {
             notification.setText("Your word has not existed in Dictionary. You can add now!");
             notification.setTextFill(Color.GREEN);
+            wordInput.setEditable(false);
             submitButton.setVisible(true);
             pronunciationInput.setEditable(true);
             nounInput.setEditable(true);
@@ -141,6 +131,7 @@ public class addAndChangeController implements Initializable {
             System.out.println("here");
             notification.setText("Your word has not existed in Dictionary. You can add now!");
             notification.setTextFill(Color.GREEN);
+            wordInput.setEditable(false);
             submitButton.setVisible(true);
             pronunciationInput.setEditable(true);
             nounInput.setEditable(true);
@@ -165,21 +156,15 @@ public class addAndChangeController implements Initializable {
 
     public void addWord(ActionEvent event) {
         String word = wordInput.getText();
-        String pronunciation = '/' + pronunciationInput.getText() + '/';
-        String meaning = "";
+        String pronunciation = "/" + pronunciationInput.getText() + "/";
         HashMap<String, String> typeMeaning = new HashMap<>();
         typeMeaning.put("Danh từ", nounInput.getText());
-        meaning += !Objects.equals(nounInput.getText(), "") ? "Danh từ: " + nounInput.getText() + '\n' :  "";
         typeMeaning.put("Động từ", verbInput.getText());
-        meaning += !Objects.equals(verbInput.getText(), "") ? "Động từ: " + verbInput.getText() + '\n' :  "";
         typeMeaning.put("Tính từ", adjInput.getText());
-        meaning += !Objects.equals(adjInput.getText(), "") ? "Tính từ: " + adjInput.getText() + '\n' :  "";
         typeMeaning.put("Trạng từ", advInput.getText());
-        meaning += !Objects.equals(advInput.getText(), "") ? "Trạng từ: " + advInput.getText() + '\n' :  "";
         String example = exampleInput.getText();
-        meaning += !Objects.equals(exampleInput.getText(), "") ? "Ví dụ: " + exampleInput.getText() + '\n' :  "";
         boolean isOk = false;
-        isOk = DictionaryManagement.insertFromFront(word, pronunciation, typeMeaning, example, meaning, DBConnect.connectDB());
+        isOk = DictionaryManagement.insertFromFront(word, pronunciation, typeMeaning, example, DBConnect.connectDB());
         if (isOk) {
             notification.setText("Added Successfully!");
             submitButton.setVisible(false);
@@ -187,6 +172,14 @@ public class addAndChangeController implements Initializable {
             notification.setText("Added Failed! Please add again");
             submitButton.setVisible(false);
         }
+        wordInput.setEditable(true);
+        pronunciationInput.setText("");
+        nounInput.setText("");
+        verbInput.setText("");
+        adjInput.setText("");
+        advInput.setText("");
+        exampleInput.setText("");
+
         submitButton.setVisible(false);
         pronunciationInput.setEditable(false);
         nounInput.setEditable(false);

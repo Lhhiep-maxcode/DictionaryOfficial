@@ -20,7 +20,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
-public class BlossomGameController implements Initializable {
+public class BlossomGameController extends GameController implements Initializable {
     @FXML
     private Button letter1;
     @FXML
@@ -97,6 +97,8 @@ public class BlossomGameController implements Initializable {
     private ImageView star2;
     @FXML
     private ImageView star3;
+    @FXML
+    private AnchorPane instruction;
 
     private static ArrayList<Button> letter;
     private static ArrayList<Button> word;
@@ -119,7 +121,7 @@ public class BlossomGameController implements Initializable {
         word = new ArrayList<>();
         ans = new ArrayList<>();
         soundList = new ArrayList<>();
-
+        instruction.setVisible(true);
 
 
         initArray();
@@ -174,6 +176,7 @@ public class BlossomGameController implements Initializable {
     }
 
     public void startGame(ActionEvent event) {
+        instruction.setVisible(false);
         scoreInt = 0;
         heartInt = MAX_HEART;
         heart.setText("x" + heartInt);
@@ -415,7 +418,7 @@ public class BlossomGameController implements Initializable {
             score.setText(String.valueOf(scoreInt));
             ansField.setText("");
         } else if (result == 1) {
-            heartInt--;
+            if (heartInt > 0) heartInt--;
             heart.setText("x" + heartInt);
             if (heartInt == 0) {
                 showNoti();
@@ -435,7 +438,7 @@ public class BlossomGameController implements Initializable {
             }
 
         } else if (result == 0 || tmp.length() < 3){
-            heartInt--;
+            if (heartInt > 0) heartInt--;
             heart.setText("x" + heartInt);
             if (heartInt == 0) {
                 showNoti();
@@ -465,24 +468,6 @@ public class BlossomGameController implements Initializable {
         initGame();
     }
 
-    public void searchScene(ActionEvent event) throws IOException {
-        ManageScene.showScene(BaseController.getRoot(), BaseController.getStage(), BaseController.getScene(), event, "IntoProgram.fxml");
-    }
 
-    public void addScene(ActionEvent event) throws IOException {
-        ManageScene.showScene(BaseController.getRoot(), BaseController.getStage(), BaseController.getScene(), event, "addAndChange.fxml");
-    }
-
-    public void gameScene(ActionEvent event) throws IOException {
-        ManageScene.showScene(BaseController.getRoot(), BaseController.getStage(), BaseController.getScene(), event, "Game.fxml");
-    }
-
-    public void showSettingScene(ActionEvent event) throws IOException {
-        ManageScene.showScene(BaseController.getRoot(), BaseController.getStage(), BaseController.getScene(), event, "Setting.fxml");
-    }
-
-    public void showTranslateScene(ActionEvent event) throws IOException {
-        ManageScene.showScene(BaseController.getRoot(), BaseController.getStage(), BaseController.getScene(), event, "Translate.fxml");
-    }
 
 }

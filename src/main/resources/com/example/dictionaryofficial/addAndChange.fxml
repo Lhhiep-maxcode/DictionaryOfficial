@@ -13,10 +13,10 @@
 
       <Label fx:id="taskbar" layoutX="255.0" layoutY="551.0" prefHeight="70.0" prefWidth="493.0" stylesheets="@css/intoprogram.css" />
       <Button fx:id="setting_button" layoutX="656.0" layoutY="561.0" mnemonicParsing="false" onAction="#showSettingScene" prefHeight="50.0" prefWidth="50.0" stylesheets="@css/button.css" />
-      <Button fx:id="game_button" layoutX="492.0" layoutY="561.0" mnemonicParsing="false" onAction="#gameScene" prefHeight="50.0" prefWidth="50.0" stylesheets="@css/button.css" />
+      <Button fx:id="game_button" layoutX="492.0" layoutY="561.0" mnemonicParsing="false" onAction="#showGameScene" prefHeight="50.0" prefWidth="50.0" stylesheets="@css/button.css" />
 
       <Button fx:id="edit_button" layoutX="411.0" layoutY="561.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" stylesheets="@css/button.css" />
-      <Button fx:id="search_button" layoutX="317.0" layoutY="564.0" mnemonicParsing="false" onAction="#searchScene" prefHeight="50.0" prefWidth="50.0" stylesheets="@css/button.css" />
+      <Button fx:id="search_button" layoutX="317.0" layoutY="564.0" mnemonicParsing="false" onAction="#intoProgram" prefHeight="50.0" prefWidth="50.0" stylesheets="@css/button.css" />
       <AnchorPane fx:id="pane" layoutX="57.0" layoutY="14.0" prefHeight="506.0" prefWidth="834.0" stylesheets="@css/edit.css">
          <children>
             <Button fx:id="submitButton" layoutX="778.0" layoutY="464.0" mnemonicParsing="false" onAction="#addWord" prefHeight="35.0" prefWidth="35.0">
@@ -27,43 +27,46 @@
             </Button>
             <TextField fx:id="wordInput" layoutX="33.0" layoutY="49.0" prefHeight="40.0" prefWidth="300.0" promptText="Type your word and check" stylesheets="@css/edit.css" />
             <TextField fx:id="pronunciationInput" layoutX="33.0" layoutY="118.0" prefHeight="40.0" prefWidth="300.0" promptText="Type pronunciation" stylesheets="@css/edit.css" />
-            <Label alignment="TOP_RIGHT" layoutX="18.0" layoutY="95.0" prefHeight="23.0" prefWidth="127.0" stylesheets="@css/edit.css" text="Pronunciation">
+            <Label alignment="TOP_RIGHT" layoutX="36.0" layoutY="93.0" prefHeight="23.0" prefWidth="127.0" stylesheets="@css/edit.css" text="Pronunciation" textFill="#5a6878">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
-            <Label alignment="TOP_RIGHT" layoutX="21.0" layoutY="162.0" prefHeight="20.0" prefWidth="64.0" stylesheets="@css/edit.css" text="Noun">
+            <Label alignment="TOP_RIGHT" layoutX="28.0" layoutY="157.0" prefHeight="20.0" prefWidth="64.0" stylesheets="@css/edit.css" text="Noun" textFill="#5a6878">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
-            <Label alignment="TOP_RIGHT" layoutX="481.0" layoutY="161.0" prefHeight="20.0" prefWidth="64.0" stylesheets="@css/edit.css" text="Verb">
+            <Label alignment="TOP_RIGHT" layoutX="483.0" layoutY="158.0" prefHeight="20.0" prefWidth="64.0" stylesheets="@css/edit.css" text="Verb" textFill="#5a6878">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
-            <Label alignment="TOP_RIGHT" layoutX="8.0" layoutY="242.0" prefHeight="20.0" prefWidth="114.0" stylesheets="@css/edit.css" text="Adjective">
+            <Label alignment="TOP_RIGHT" layoutX="17.0" layoutY="236.0" prefHeight="20.0" prefWidth="114.0" stylesheets="@css/edit.css" text="Adjective" textFill="#5a6878">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
-            <Label alignment="TOP_RIGHT" layoutX="487.0" layoutY="242.0" prefHeight="20.0" prefWidth="64.0" stylesheets="@css/edit.css" text="Adverb">
+            <Label alignment="TOP_RIGHT" layoutX="486.0" layoutY="238.0" prefHeight="28.0" prefWidth="85.0" stylesheets="@css/edit.css" text="Adverb" textFill="#5a6878">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
-            <Label fx:id="yourWord" alignment="TOP_RIGHT" layoutX="16.0" layoutY="27.0" prefHeight="23.0" prefWidth="114.0" stylesheets="@css/edit.css" text="Word input">
+            <Label fx:id="yourWord" alignment="TOP_RIGHT" layoutX="29.0" layoutY="23.0" prefHeight="23.0" prefWidth="114.0" stylesheets="@css/edit.css" text="Word input" textFill="#5a6878">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
-            <Button fx:id="check" layoutX="333.0" layoutY="49.0" mnemonicParsing="false" onAction="#checkExistingWord" prefHeight="40.0" prefWidth="64.0" text="Check">
+            <Button fx:id="check" layoutX="333.0" layoutY="49.0" mnemonicParsing="false" onAction="#checkExistingWord" prefHeight="40.0" prefWidth="64.0" text="Check" textFill="RED">
                <stylesheets>
                   <URL value="@css/button.css" />
                   <URL value="@css/edit.css" />
                </stylesheets>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
             </Button>
-            <Label layoutX="6.0" layoutY="331.0" prefHeight="20.0" prefWidth="114.0" stylesheets="@css/edit.css" text="Example">
+            <Label layoutX="17.0" layoutY="318.0" prefHeight="20.0" prefWidth="114.0" stylesheets="@css/edit.css" text="Example" textFill="#5a6878">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
@@ -72,8 +75,11 @@
             <TextArea fx:id="advInput" layoutX="494.0" layoutY="263.0" prefHeight="54.0" prefWidth="300.0" promptText="Type the meaning of adverb" stylesheets="@css/edit.css" />
             <TextArea fx:id="nounInput" layoutX="33.0" layoutY="182.0" prefHeight="54.0" prefWidth="300.0" promptText="Type the meaning of noun" stylesheets="@css/edit.css" />
             <TextArea fx:id="verbInput" layoutX="494.0" layoutY="182.0" prefHeight="54.0" prefWidth="300.0" promptText="Type the meaning of verb" stylesheets="@css/edit.css" />
-            <TextArea fx:id="exampleInput" layoutX="33.0" layoutY="353.0" prefHeight="104.0" prefWidth="762.0" promptText="Type the meaning of adjective" stylesheets="@css/edit.css" />
-            <Label fx:id="notification" layoutX="51.0" layoutY="476.0" prefHeight="18.0" prefWidth="678.0" style="-fx-background-color: none;" />
+            <TextArea fx:id="exampleInput" layoutX="33.0" layoutY="347.0" prefHeight="110.0" prefWidth="762.0" promptText="Type the meaning of adjective" stylesheets="@css/edit.css" />
+            <Label fx:id="notification" layoutX="51.0" layoutY="476.0" prefHeight="18.0" prefWidth="678.0" style="-fx-background-color: none;">
+               <font>
+                  <Font size="17.0" />
+               </font></Label>
          </children>
       </AnchorPane>
       <Button fx:id="translate_button" layoutX="573.0" layoutY="561.0" mnemonicParsing="false" onAction="#showTranslateScene" prefHeight="50.0" prefWidth="50.0" stylesheets="@css/button.css" />

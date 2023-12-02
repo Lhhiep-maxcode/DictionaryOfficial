@@ -1,0 +1,63 @@
+
+.text-area {
+    -fx-background-color: white;
+
+
+
+}
+
+.text-area .content {
+
+;
+
+
+
+}
+.text-field {
+
+;
+
+
+}
+.combo-box {
+
+;
+
+}
+
+.combo-box .list-cell {
+
+
+}
+.label {
+    -fx-alignment: center;
+    -fx-content-display: center;
+    -fx-font-family:Arial;
+    -fx-text-fill: #0766AD;
+    -fx-font-size: 20;
+
+    -fx-background-radius: 10px;
+}
+
+#check {
+    -fx-background-color:#0766AD;
+    -fx-text-fill: white;
+    -fx-font-size: 15;
+}
+
+#pane {
+    -fx-background-color: C5E898;
+    -fx-background-radius: 30px;
+}
+
+
+#submitButton {
+    -fx-background-color: transparent;
+    -fx-border-width: 0; /* Loại bỏ viền của nút */
+    -fx-border-color: transparent;
+
+    -fx-background-image: url('../Image/confirm_icon.png');
+    -fx-background-size: cover; /* Kích thớc của hình ảnh theo tỷ lệ */
+    -fx-background-repeat: no-repeat; /* Ngăn lặp lại hình ảnh */
+    -fx-background-position: center center; /* Căn giữa hình ảnh */
+}

@@ -23,11 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class FlashCardController implements Initializable {
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
+public class FlashCardController extends GameController implements Initializable {
     @FXML
     private StackPane FlashCardPane = new StackPane();
     @FXML
@@ -126,22 +122,6 @@ public class FlashCardController implements Initializable {
         } else {
             nextButton.setVisible(true);
         }
-    }
-
-    public void showSettingScene(ActionEvent event) throws IOException {
-        ManageScene.showScene(root, stage, scene, event, "Setting.fxml");
-    }
-
-    public void searchScene(ActionEvent event) throws IOException {
-        ManageScene.showScene(root,stage,scene,event,"IntoProgram.fxml");
-    }
-
-    public void addScene(ActionEvent event) throws IOException {
-        ManageScene.showScene(root, stage, scene, event, "addAndChange.fxml");
-    }
-
-    public void gameScene(ActionEvent event) throws IOException {
-        ManageScene.showScene(root,stage,scene,event,"Game.fxml");
     }
 
     @Override
