@@ -62,17 +62,17 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <ImageView fx:id="img_3" fitHeight="70.0" fitWidth="70.0" layoutX="282.0" layoutY="414.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="img_3" fitHeight="70.0" fitWidth="70.0" layoutX="282.0" layoutY="404.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Image/answers.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="img_2" fitHeight="70.0" fitWidth="70.0" layoutX="283.0" layoutY="304.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="img_2" fitHeight="70.0" fitWidth="70.0" layoutX="283.0" layoutY="295.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Image/frog%20(1).png" />
          </image>
       </ImageView>
-      <ImageView fx:id="img_1" fitHeight="70.0" fitWidth="70.0" layoutX="282.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="img_1" fitHeight="70.0" fitWidth="70.0" layoutX="282.0" layoutY="193.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Image/flash-card.png" />
          </image>

@@ -14,7 +14,11 @@ import java.net.URI;
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
-    public static void main(String[] args) throws Exception {
-        Desktop.getDesktop().browse(URI.create("https://www.facebook.com/"));
+    public static void main(String[] args) throws FileNotFoundException {
+        Dictionary dictionary = new Dictionary();
+
+        while (true) {
+            DictionaryCommandline.dictionaryBasic(dictionary, DBConnect.connectDB());
+        }
     }
 }

@@ -79,6 +79,8 @@ public class DictionaryCommandline {
         Scanner sc = new Scanner(System.in);
         int choice = sc.nextInt();
         switch (choice) {
+            case 0:
+                break;
             case 1:
                 DictionaryManagement.insertFromCommandline(dictionary,connect);
                 break;
@@ -89,9 +91,10 @@ public class DictionaryCommandline {
                 DictionaryManagement.FixFromCommandLine(dictionary,connect);
                 break;
             case 4:
+                DictionaryCommandline.showAllWords(dictionary, connect);
                 break;
             case 5:
-                DictionaryCommandline.showAllWords(dictionary,connect);
+                DictionaryCommandline.searchWord(connect);
                 break;
             case 6:
                 DictionaryCommandline.searchWord(connect);
@@ -203,6 +206,26 @@ public class DictionaryCommandline {
         Scanner sc = new Scanner(System.in);
         System.out.print("Nhập từ cần tìm ");
         String wordTarget = sc.next();
-        getWord(wordTarget,connect);
+        searchWordFromCommandLine(wordTarget, connect);
     }
+
+    public static void searchWordFromCommandLine(String wordTarget, Connection connect) {
+        try {
+            Statement smt = connect.createStatement();
+            ResultSet res = smt.executeQuery("Select id, wordTarget, wordMeaning from " + DBConnect.DB_NAME
+                    + " where wordTarget = '" + wordTarget + "'");
+            System.out.printf("%-3s | %-15s | %-20s \n", "No", "English", "Vietnamese");
+            if (res.next()) {
+                String meaning = res.getString(3);
+                System.out.printf("%-3s | %-15s | %-20s \n", res.getInt(1), wordTarget, meaning);
+            } else {
+                System.out.println("Khong co tu nay, CO phai y ban la");
+                suggestWord(wordTarget, connect);
+            }
+        } catch (Exception e) {
+            System.out.println("Loi truy xuat Db");
+            System.out.println(e);
+        }
+    }
+
 }
